@@ -1,0 +1,76 @@
+/*Campo de edição do texto*/
+.editor-paper{
+  min-height: 200px;
+  margin: 0 15px 15px 15px;
+  padding: 4px;
+  border-style: outset;
+  border-width: 1px;
+  border-radius: 0 0px 8px 8px;
+  background-color: white;
+}
+
+/*Botões*/
+.editor-button{
+  height: 40px;
+  min-width: 100px;
+  max-width: 50%;
+  border: none;
+  border-radius: 10px;
+  margin: 0 10px 10px 10px;
+  background-color: #4682B4;
+  color: #F8F8FF;
+  font-family: 'Arial Black';
+  transition: all 0.3s;
+}
+
+.editor-button:hover{
+  background-color: #708090;;
+}
+
+/*Espaço que contem os botões*/
+.controls-content{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 15px 15px 15px;
+}
+
+.toolbar-content{
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 15px 15px 0px 15px;
+  padding: 15px;
+  border-style: outset;
+  border-width: 1px;
+  border-radius: 8px 8px 0 0;
+  background-color: white;
+}
+
+.toolbar-content button{
+  background-color: white;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.toolbar-content button:hover{
+  background-color: #DCDCDC;
+}
+
+.toolbar-content button svg{
+  border: none;
+  width: 15px;
+  height: 15px;
+}
+
+.toolbar-divisor{
+  display: block;
+  height: 30px;
+  width: 1px;
+  background-color: #DCDCDC;
+}
