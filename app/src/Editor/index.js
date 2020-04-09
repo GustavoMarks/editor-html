@@ -2,7 +2,7 @@ import React from 'react';
 import Toolbar from './components/Toolbar';
 import './styles.css';
 
-export default function Editor({ width }) {
+export default function Editor({ style }) {
   return(
     <div>
       <Toolbar/>
@@ -10,7 +10,7 @@ export default function Editor({ width }) {
       <div
         id="editor" 
         className="editor-paper"
-        style={ width ? { minWidth: width} : { width: 'auto' }}
+        style={ style }
         contentEditable="true"
         designmode="on"
         spellCheck="true"/>     

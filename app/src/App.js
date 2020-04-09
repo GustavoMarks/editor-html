@@ -9,7 +9,7 @@ function App() {
         <h1>TESTE DE IMPLEMENTAÇÃO</h1>
         <p> Escreva seu texto abaixo, estilize e gere uma string HTML </p>
       </header>
-      <Editor width='70vw' />
+      <Editor/>
     </div>
     
   );
