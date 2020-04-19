@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BoldIcon, CenterAlignIcon, ImageIcon, ItalicIcon, JustifyAlignIcon, LeftAlignIcon, LinkIcon, ListIcon, ListOrdenedIcon, RedoIcon, RightAlignIcon, SubtitleIcon, TitleIcon, UnderlineIcon, UndoIcon, UnlinkIcon, YoutubeIcon } from '../Icons';
+import Modal from '../Modal';
+import './styles.css';
 
 export default function Toolbar() {
   const [h2, setH2] = useState(false);
@@ -146,8 +148,12 @@ export default function Toolbar() {
 
       <button> <ImageIcon /> </button>
       <button> <YoutubeIcon /> </button>
-      <button> <LinkIcon fill={link ? '#4682B4' : null} /> </button>
+      <button id='toolbar-link-button' > <LinkIcon fill={link ? '#4682B4' : null} /> </button>
       <button> <UnlinkIcon onClick={() => format('Unlink')} /> </button>
+
+      <Modal triggers={['toolbar-link-button']} >
+        testes
+      </Modal>
 
     </div>
   )

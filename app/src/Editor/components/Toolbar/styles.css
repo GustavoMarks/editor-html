@@ -1,0 +1,40 @@
+.toolbar-content{
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 15px 15px 0px 15px;
+  padding: 15px;
+  border-style: outset;
+  border-width: 1px;
+  border-radius: 8px 8px 0 0;
+  background-color: white;
+}
+
+.toolbar-content button{
+  background-color: white;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.toolbar-content button:hover{
+  background-color: #DCDCDC;
+}
+
+.toolbar-content button svg{
+  border: none;
+  width: 15px;
+  height: 15px;
+}
+
+.toolbar-divisor{
+  display: block;
+  height: 30px;
+  width: 1px;
+  background-color: #DCDCDC;
+}
