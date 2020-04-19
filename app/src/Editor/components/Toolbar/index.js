@@ -12,8 +12,26 @@ export default function Toolbar() {
   const [link, setLink] = useState(false);
 
   //Função para manipular a fomatação html do campo de edição
-  const format = (commmand) => {
-    document.execCommand(commmand);
+  const format = (command) => {
+    document.execCommand(command);
+
+    // setando estados dos botões
+    switch(command) {
+      case 'bold': 
+        setBold(true);
+        break;
+      case 'italic':
+        setItalic(true);
+        break;
+      case 'underline':
+        setUnderline(true);
+        break
+      case 'insertOrderedList':
+        setOl(true);
+        break;
+      default:
+        setUl(true);
+    }
   }
 
   //Função para atribuir títulos html para trechos de texto no campo de edição
