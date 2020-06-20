@@ -12,14 +12,16 @@ export default function Toolbar() {
   const [ol, setOl] = useState(false);
   const [ul, setUl] = useState(false);
   const [link, setLink] = useState(false);
+  const [url, setUrl] = useState('');
+  const [range, setRange] = useState('');
 
   //Função para manipular a fomatação html do campo de edição
   const format = (command) => {
     document.execCommand(command);
 
     // setando estados dos botões
-    switch(command) {
-      case 'bold': 
+    switch (command) {
+      case 'bold':
         setBold(true);
         break;
       case 'italic':
@@ -87,7 +89,7 @@ export default function Toolbar() {
     parentList.forEach((element) => {
       if (element.tagName === 'H2') tempH2 = true;
       if (element.tagName === 'H3') tempH3 = true;
-      if (element.tagName === 'B' || element.tagName === 'STRONG' ) tempBold = true;
+      if (element.tagName === 'B' || element.tagName === 'STRONG') tempBold = true;
       if (element.tagName === 'I') tempItalic = true;
       if (element.tagName === 'U') tempUnderline = true;
       if (element.tagName === 'OL') tempOl = true;
@@ -107,7 +109,19 @@ export default function Toolbar() {
 
   }
 
-  useEffect (() => {
+  const linking = (e) => {
+    e.preventDefault();
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    document.execCommand('CreateLink', false, url);
+  }
+
+  const saveRange = () => {
+    if (window.getSelection().getRangeAt(0))
+      setRange(window.getSelection().getRangeAt(0))
+  }
+
+  useEffect(() => {
     // buscando div editávl do editor pelo DOM
     let editor = document.getElementById('editor');
 
@@ -120,41 +134,48 @@ export default function Toolbar() {
   });
 
   return (
-    <div className="toolbar-content">
-      <button onClick={() => format('undo')} > <UndoIcon /> </button>
-      <button onClick={() => format('redo')}> <RedoIcon /> </button>
+    <>
+      <div className="toolbar-content">
+        <button onClick={() => format('undo')} > <UndoIcon /> </button>
+        <button onClick={() => format('redo')}> <RedoIcon /> </button>
 
-      <div className="toolbar-divisor" />
+        <div className="toolbar-divisor" />
 
-      <button onClick={() => titles('h2')}> <TitleIcon fill={h2 ? '#4682B4' : null} /> </button>
-      <button onClick={() => titles('h3')}> <SubtitleIcon fill={h3 ? '#4682B4' : null} /> </button>
+        <button onClick={() => titles('h2')}> <TitleIcon fill={h2 ? '#4682B4' : null} /> </button>
+        <button onClick={() => titles('h3')}> <SubtitleIcon fill={h3 ? '#4682B4' : null} /> </button>
 
-      <div className="toolbar-divisor" />
+        <div className="toolbar-divisor" />
 
-      <button onClick={() => format('bold')}> <BoldIcon fill={bold ? '#4682B4' : null} /> </button>
-      <button onClick={() => format('italic')}> <ItalicIcon fill={italic ? '#4682B4' : null} /> </button>
-      <button onClick={() => format('underline')}> <UnderlineIcon fill={underline ? '#4682B4' : null} /> </button>
+        <button onClick={() => format('bold')}> <BoldIcon fill={bold ? '#4682B4' : null} /> </button>
+        <button onClick={() => format('italic')}> <ItalicIcon fill={italic ? '#4682B4' : null} /> </button>
+        <button onClick={() => format('underline')}> <UnderlineIcon fill={underline ? '#4682B4' : null} /> </button>
 
-      <div className="toolbar-divisor" />
+        <div className="toolbar-divisor" />
 
-      <button onClick={() => format('justifyFull')} > <JustifyAlignIcon /> </button>
-      <button onClick={() => format('justifyLeft')}> <LeftAlignIcon /> </button>
-      <button onClick={() => format('justifyCenter')}> <CenterAlignIcon /> </button>
-      <button onClick={() => format('justifyRight')} > <RightAlignIcon /> </button>
-      <button onClick={() => format('insertOrderedList')} > <ListOrdenedIcon fill={ol ? '#4682B4' : null} /> </button>
-      <button onClick={() => format('insertUnorderedList')}> <ListIcon fill={ul ? '#4682B4' : null} /> </button>
+        <button onClick={() => format('justifyFull')} > <JustifyAlignIcon /> </button>
+        <button onClick={() => format('justifyLeft')}> <LeftAlignIcon /> </button>
+        <button onClick={() => format('justifyCenter')}> <CenterAlignIcon /> </button>
+        <button onClick={() => format('justifyRight')} > <RightAlignIcon /> </button>
+        <button onClick={() => format('insertOrderedList')} > <ListOrdenedIcon fill={ol ? '#4682B4' : null} /> </button>
+        <button onClick={() => format('insertUnorderedList')}> <ListIcon fill={ul ? '#4682B4' : null} /> </button>
 
-      <div className="toolbar-divisor" />
+        <div className="toolbar-divisor" />
 
-      <button> <ImageIcon /> </button>
-      <button> <YoutubeIcon /> </button>
-      <button id='toolbar-link-button' > <LinkIcon fill={link ? '#4682B4' : null} /> </button>
-      <button> <UnlinkIcon onClick={() => format('Unlink')} /> </button>
+        <button> <ImageIcon /> </button>
+        <button> <YoutubeIcon /> </button>
+        <button id='toolbar-link-button' onClick={() => saveRange()} > <LinkIcon fill={link ? '#4682B4' : null} /> </button>
+        <button onClick={() => format('unlink')}> <UnlinkIcon /> </button>
 
-      <Modal triggers={['toolbar-link-button']} >
-        testes
+      </div>
+
+      <Modal triggers={['toolbar-link-button', 'submit-url']} >
+        <form onSubmit={(e) => linking(e)}>
+          <label> URL: </label>
+          <input type='text' value={url} onChange={(e) => setUrl(e.target.value)} />
+          <button id='submit-url' type='submit' > enviar </button>
+        </form>
       </Modal>
 
-    </div>
+    </>
   )
 } 

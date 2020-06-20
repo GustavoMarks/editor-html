@@ -23,6 +23,38 @@
   padding: 35px;
   position: relative;
   overflow: auto;
+  text-align: center;
+}
+
+.modal-glass input {
+  margin-bottom: 15px;
+  min-width: 200px;
+  width: 380px;
+  height: 30px;
+  border: 1px solid #b4b4b4;
+}
+
+.modal-glass button {
+  height: 40px;
+  min-width: 100px;
+  max-width: 50%;
+  border: none;
+  border-radius: 10px;
+  margin: 0 10px 10px 10px;
+  background-color: #4682B4;
+  color: #F8F8FF;
+  font-family: 'Arial Black';
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.modal-glass button:hover {
+  background-color: #708090;
+}
+
+.modal-glass label {
+  font-family: 'Arial Black';
+  text-decoration: double;
 }
 
 .modal-closer{
