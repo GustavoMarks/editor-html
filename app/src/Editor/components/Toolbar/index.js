@@ -116,6 +116,42 @@ export default function Toolbar() {
     document.execCommand('CreateLink', false, url);
   }
 
+  const addYtLink = (e) => {
+    e.preventDefault();
+    let entry = url;
+
+    if (entry.indexOf("https://www.youtube.com") !== -1) {
+      if (entry.indexOf("index=") !== -1 || entry.indexOf("radio=") !== -1) {
+        let iframe = document.createElement("iframe");
+        iframe.type = "text/html";
+        iframe.height = "360";
+        iframe.width = "80%";
+        iframe.src = "https://www.youtube.com/embed/" + entry;
+
+        range.insertNode(iframe);
+
+      } else if (entry.indexOf("watch?v=") !== -1) {
+        let iframe = document.createElement("iframe");
+        iframe.type = "text/html";
+        iframe.height = "360";
+        iframe.width = "80%";
+
+        let id = entry.split("watch?v=")[1];
+        iframe.src = "https://www.youtube.com/embed/" + id;
+
+        range.insertNode(iframe);
+
+      } else {
+        console.log("Link corrompido...");
+        
+      }
+    } else {
+      console.log("Link inválido...");
+
+    }
+
+  }
+
   const saveRange = () => {
     if (window.getSelection().getRangeAt(0))
       setRange(window.getSelection().getRangeAt(0))
@@ -162,17 +198,25 @@ export default function Toolbar() {
         <div className="toolbar-divisor" />
 
         <button> <ImageIcon /> </button>
-        <button> <YoutubeIcon /> </button>
+        <button id='toolbar-yt-button' onClick={() => saveRange()}> <YoutubeIcon /> </button>
         <button id='toolbar-link-button' onClick={() => saveRange()} > <LinkIcon fill={link ? '#4682B4' : null} /> </button>
         <button onClick={() => format('unlink')}> <UnlinkIcon /> </button>
 
       </div>
 
-      <Modal triggers={['toolbar-link-button', 'submit-url']} >
+      <Modal triggers={['toolbar-link-button', 'submit-url-link']} >
         <form onSubmit={(e) => linking(e)}>
           <label> URL: </label>
           <input type='text' value={url} onChange={(e) => setUrl(e.target.value)} />
-          <button id='submit-url' type='submit' > enviar </button>
+          <button id='submit-url-link' type='submit' > adicionar </button>
+        </form>
+      </Modal>
+
+      <Modal triggers={['toolbar-yt-button', 'submit-yt-link']} >
+        <form onSubmit={(e) => addYtLink(e)}>
+          <label> URL do Youtube: </label>
+          <input type='text' value={url} onChange={(e) => setUrl(e.target.value)} />
+          <button id='submit-yt-link' type='submit' > adicionar </button>
         </form>
       </Modal>
 
