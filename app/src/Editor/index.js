@@ -17,7 +17,6 @@ export default function Editor({ style, onSubmit }) {
 
   return (
     <div>
-      <Toolbar />
 
       <div
         id="editor"
@@ -26,6 +25,8 @@ export default function Editor({ style, onSubmit }) {
         contentEditable="true"
         designmode="on"
         spellCheck="true" />
+
+      <Toolbar />
 
       <div className="controls-content">
         <button id="salve" className="editor-button" onClick={handleSubmit} >PUBLICAR</button>

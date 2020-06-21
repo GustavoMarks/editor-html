@@ -109,11 +109,12 @@ export default function Toolbar() {
 
   }
 
-  const linking = (e) => {
+  const linking = (e, type) => {
     e.preventDefault();
     window.getSelection().removeAllRanges();
     window.getSelection().addRange(range);
-    document.execCommand('CreateLink', false, url);
+    document.execCommand(type, false, url);
+    if(type === 'insertImage') document.execCommand('enableObjectResizing');
   }
 
   const addYtLink = (e) => {
@@ -143,7 +144,7 @@ export default function Toolbar() {
 
       } else {
         console.log("Link corrompido...");
-        
+
       }
     } else {
       console.log("Link inválido...");
@@ -197,7 +198,7 @@ export default function Toolbar() {
 
         <div className="toolbar-divisor" />
 
-        <button> <ImageIcon /> </button>
+        <button id='toolbar-img-button' onClick={() => saveRange()}> <ImageIcon /> </button>
         <button id='toolbar-yt-button' onClick={() => saveRange()}> <YoutubeIcon /> </button>
         <button id='toolbar-link-button' onClick={() => saveRange()} > <LinkIcon fill={link ? '#4682B4' : null} /> </button>
         <button onClick={() => format('unlink')}> <UnlinkIcon /> </button>
@@ -205,7 +206,7 @@ export default function Toolbar() {
       </div>
 
       <Modal triggers={['toolbar-link-button', 'submit-url-link']} >
-        <form onSubmit={(e) => linking(e)}>
+        <form onSubmit={(e) => linking(e,'CreateLink')}>
           <label> URL: </label>
           <input type='text' value={url} onChange={(e) => setUrl(e.target.value)} />
           <button id='submit-url-link' type='submit' > adicionar </button>
@@ -217,6 +218,14 @@ export default function Toolbar() {
           <label> URL do Youtube: </label>
           <input type='text' value={url} onChange={(e) => setUrl(e.target.value)} />
           <button id='submit-yt-link' type='submit' > adicionar </button>
+        </form>
+      </Modal>
+
+      <Modal triggers={['toolbar-img-button', 'submit-img-link']} >
+        <form onSubmit={(e) => linking(e, 'insertImage')}>
+          <label> URL de Imagem: </label>
+          <input type='text' value={url} onChange={(e) => setUrl(e.target.value)} />
+          <button id='submit-img-link' type='submit' > adicionar </button>
         </form>
       </Modal>
 

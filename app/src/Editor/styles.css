@@ -2,11 +2,11 @@
 .editor-paper{
   min-height: 200px;
   width: 70vw;
-  margin: 0 15px 15px 15px;
+  margin: 0 15px 0px 15px;
   padding: 20px;
   border-style: outset;
   border-width: 1px;
-  border-radius: 0 0px 8px 8px;
+  border-radius: 8px 8px 0 0;
   background-color: white;
   word-wrap: break-word;
 }
